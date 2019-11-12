@@ -1,4 +1,4 @@
-FROM centos:7.6.1810 as builder
+FROM centos:7.6.1810
 RUN yum install -y unzip make automake autoconf wget openssl-devel libtool zlib gcc-c++.x86_64 git which 
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.5/cmake-3.15.5.tar.gz \
 	&& tar zxvf cmake-3.15.5.tar.gz \
@@ -12,10 +12,6 @@ RUN PROTOC_VERSION=3.8.0 \
     && rm -f $PROTOC_ZIP
 RUN git clone https://github.com/fanux/libra.git \
 	&& cd libra && git checkout fanux-testnet \
-	&& ./scripts/dev_setup.sh && ./scripts/cli/build.sh 
-
-FROM centos:7.6.1810
+	&& ./scripts/dev_setup.sh && ./scripts/cli/build_cli.sh
 WORKDIR /libra
-COPY --from=builder /libra/target/debug/client /bin
-COPY --from=builder /libra/target/debug/libra_swarm /bin
-CMD client --host ac.testnet.libra.org --port 8000 -s ./scripts/cli/consensus_peers.config.toml
+CMD ./target/debug/client --host ac.testnet.libra.org --port 8000 -s ./scripts/cli/consensus_peers.config.toml
