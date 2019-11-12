@@ -17,5 +17,6 @@ RUN git clone https://github.com/fanux/libra.git \
 FROM centos:7.6.1810
 WORKDIR /libra
 COPY --from=builder /libra/target/debug/client /bin
-COPY --from=builder /libra/target/debug/libra_swarm /bin
-CMD client --host ac.testnet.libra.org --port 8000 -s ./scripts/cli/consensus_peers.config.toml
+COPY --from=builder /libra/scripts/cli/consensus_peers.config.toml /etc/libra/
+COPY --from=builder /libra/target/debug/libra-swarm /bin
+CMD client --host ac.testnet.libra.org --port 8000 -s /etc/libra/consensus_peers.config.toml
