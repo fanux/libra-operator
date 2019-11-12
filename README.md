@@ -11,3 +11,9 @@ docker run --rm -w /libra -it fanux/libra  ./scripts/cli/start_cli_testnet.sh
 ```
 docke run --rm -it fanux/libra:1.1
 ```
+
+> tiny dockerfile, only has bin and configfile
+
+```
+docker run --rm -it fanux/libra:release
+```
