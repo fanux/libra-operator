@@ -7,3 +7,7 @@ libra on kubernetes
 ```
 docker run --rm -it fanux/libra:release
 ```
+
+# transaction
+
+[my-first-transaction](https://developers.libra.org/docs/my-first-transaction#create-alices-and-bobs-account)
